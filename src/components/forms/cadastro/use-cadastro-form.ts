@@ -1,11 +1,9 @@
-// hooks/use-login-form.ts
 import * as Yup from "yup";
 import { CadastroForm, UsuarioPayload } from "./types";
 import Alerts from "@/services/sw-alert";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import ApiClient from "@/services/http-client";
-import { Tokens } from "../login/types";
 
 export const cadastroSchema = Yup.object({
     nome: Yup.string().required("Obrigatório"),
@@ -35,18 +33,16 @@ export function useCadastroForm() {
             setLoading(true);
             const apiClient = new ApiClient();
 
-            const response: Tokens = await apiClient.post("/auth/cadastro", {
+            await apiClient.post("/auth/cadastro", {
                 nome: values.nome,
                 email: values.email,
                 senha: values.senha,
             } as UsuarioPayload);
 
-            console.log(response);
+            await Alerts.success("Cadastro realizado com sucesso");
+            setLoading(false);
 
-            // definirUsuario(usuario);
-            // definirToken(usuario.token);
-
-            router.push("/filmes");
+            router.push("/");
         } catch (error) {
             console.log(error);
             await Alerts.error("Ocorreu um erro na tentativa de cadastro", error);

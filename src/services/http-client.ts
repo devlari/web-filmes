@@ -9,7 +9,7 @@ export default class ApiClient {
     constructor(token = "") {
         this.axiosInstance = getAxiosClient();
 
-        if (token.trim()) {
+        if (token && token.trim() !== "") {
             this.axiosInstance.defaults.headers.common["x-access-token"] = token;
         }
 
@@ -62,7 +62,7 @@ export default class ApiClient {
                     }
                 }
 
-                if (err.response?.status === 401 && originalConfig.url !== "/login") {
+                if (err.response?.status === 401 && originalConfig.url !== "/") {
                     destroyCookie(null, "token");
                     destroyCookie(null, "refreshToken");
 

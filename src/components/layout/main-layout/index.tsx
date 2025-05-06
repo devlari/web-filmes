@@ -1,6 +1,10 @@
 import { Footer, Header } from "@/components";
 
-export function MainLayout({ children }: { children: React.ReactNode }) {
+type MainLayoutProps = {
+  children: React.ReactNode;
+}
+
+export function MainLayout({ children }: MainLayoutProps) {
   return (
     <>
         <Header />

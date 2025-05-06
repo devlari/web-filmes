@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import { AuthProvider } from "@/contexts/auth/auth.context";
 import "@/app/globals.css"; 
 
 const inter = Inter({
@@ -16,9 +17,11 @@ export default function App({ Component, pageProps }: AppProps) {
       defaultTheme="system"
       enableSystem
     >
-      <div className={`min-h-screen flex flex-col ${inter.variable}`}>
-        <Component {...pageProps} />
-      </div>
+      <AuthProvider>
+        <div className={`min-h-screen flex flex-col ${inter.variable}`}>
+          <Component {...pageProps} />
+        </div>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

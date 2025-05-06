@@ -5,6 +5,7 @@ import Alerts from "@/services/sw-alert";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import ApiClient from "@/services/http-client";
+import { useAuthContext } from "@/contexts/auth/auth.context";
 
 export const loginSchema = Yup.object({
     email: Yup.string().email("E-mail inválido").required("Obrigatório"),
@@ -12,12 +13,14 @@ export const loginSchema = Yup.object({
 });
 
 export function useLoginForm() {
-    const initialValues = {
+    const initialValues: Credenciais = {
         email: "",
         senha: "",
-    } as Credenciais;
+    };
+
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const { definirToken, definirUsuario } = useAuthContext();
 
     const handleSubmit = async (values: Credenciais) => {
         try {
@@ -29,24 +32,27 @@ export function useLoginForm() {
                 senha: values.senha,
             });
 
-            console.log(response);
-
             if (!response.token || !response.refreshToken) {
                 await Alerts.error("Login e senha inválidos");
                 setLoading(false);
                 return;
             }
 
-            // definirUsuario(usuario);
-            // definirToken(usuario.token);
+            definirToken(response);
+
+            const authedClient = new ApiClient(response.token);
+            const usuario = await authedClient.get("/usuario");
+
+            definirUsuario(usuario);
 
             router.push("/filmes");
         } catch (error) {
-            console.log(error);
-            await Alerts.error("Ocorreu um erro na tentativa de login", error);
+            console.error(error);
+            await Alerts.error("Ocorreu um erro na tentativa de login");
+        } finally {
             setLoading(false);
-            return;
         }
-    }
+    };
+
     return { loading, initialValues, handleSubmit, loginSchema };
 }
