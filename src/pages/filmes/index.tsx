@@ -1,6 +1,7 @@
 import { MainLayout } from "@/components";
 import { UsuarioPayload } from "@/components/forms/cadastro/types";
-import { Filme, PaginationResponse } from "@/modules/filmes";
+import { ListFilmes } from "@/modules/filmes/components/list-filmes";
+import { Filme, PaginationResponse } from "@/modules/filmes/types";
 import ApiClient from "@/services/http-client";
 import { parseCookies } from "nookies";
 
@@ -10,33 +11,33 @@ type FilmesPageProps = {
 };
 
 
-
-export default function FilmesPage({ filmes, usuario }: FilmesPageProps) {
+export default function FilmesPage({ filmes }: FilmesPageProps) {
     return (
         <MainLayout>
-            {filmes.totalPages}
+            <ListFilmes data={filmes} />
         </MainLayout>
     )
 }
 
 export const getServerSideProps = async (ctx) => {
-    const cookies = parseCookies(ctx);
-    const token = cookies["@token"];
-  
-    if (!token) {
-      return {
-        redirect: {
-          destination: "/",
-          permanent: false,
-        },
-      };
-    }
-  
-    const apiClient = new ApiClient(token);
-    const usuario = await apiClient.get("/usuario");
-    const filmes = await apiClient.get("/filmes");
-  
+  const cookies = parseCookies(ctx);
+  const token = cookies["@token"];
+  const page = Number(ctx.query.page) || 1; 
+
+  if (!token) {
     return {
-      props: { filmes, usuario },
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
     };
+  }
+
+  const apiClient = new ApiClient(token);
+  const usuario = await apiClient.get("/usuario");
+  const filmes = await apiClient.get(`/filmes?page=${page}`); 
+
+  return {
+    props: { filmes, usuario },
   };
+};
