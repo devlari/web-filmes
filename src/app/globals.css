@@ -1,28 +1,20 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@layer theme, base, components, primereact, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@import "primereact/resources/themes/md-dark-deeppurple/theme.css";
+@import "primereact/resources/primereact.min.css";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@import "primeflex/primeflex.css";
 
 :root {
-  --text-color: #1f1f1f;
-  --text-color-secondary: #6b7280; 
-  --primary-color: #8b5cf6; 
-  --primary-color-text: #ffffff;
   --font-family: 'Inter', sans-serif;
-  --inline-spacing: 0.5rem;
-  --border-radius: 0.5rem;
-  --focus-ring: 0 0 0 3px rgba(139, 92, 246, 0.5); 
-  --mask-bg: rgba(0, 0, 0, 0.4);
-  --highlight-bg: #ede9fe; 
-  --highlight-text-color: #4c1d95; 
 }
 
-.dark {
-  --text-color: #f3f4f6;
-  --text-color-secondary: #9ca3af; 
-  --primary-color: #c084fc; 
-  --primary-color-text: #1e1e1e;
-  --focus-ring: 0 0 0 3px rgba(192, 132, 252, 0.5); 
-  --highlight-bg: #4c1d95; 
-  --highlight-text-color: #ede9fe; 
-  --mask-bg: rgba(255, 255, 255, 0.4);
+html, body {
+  margin: 0;
+  padding: 0;
 }
