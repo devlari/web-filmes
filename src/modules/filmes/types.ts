@@ -4,6 +4,7 @@ export type Filme = {
     tituloOriginal: string
     tituloTraduzido: string
     descricao: string
+    sinopse?: string
     orcamento?: number
     dtLancamento: string | Date
     urlImagem?: string
