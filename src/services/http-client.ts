@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 import { getAxiosClient } from "./axios";
 import { parseCookies, setCookie, destroyCookie } from "nookies";
@@ -107,28 +108,28 @@ export default class ApiClient {
         await this.loadHttpClient();
     }
 
-    async post<T = unknown>(url: string, data: Record<string, unknown> = {}): Promise<T> {
+    async post<T = any>(url: string, data: Record<string, unknown> = {}): Promise<T> {
         const response = await this.axiosInstance.post<T>(url, data);
         return response.data;
     }
 
 
-    async get<T = unknown>(url: string, params: object = {}): Promise<T> {
+    async get<T = any>(url: string, params: object = {}): Promise<T> {
         const response = await this.axiosInstance.get<T>(url, { params });
         return response.data;
     }
 
-    async put<T = unknown>(url: string, data = {}): Promise<T> {
+    async put<T = any>(url: string, data = {}): Promise<T> {
         const response = await this.axiosInstance.put<T>(url, data);
         return response.data;
     }
 
-    async patch<T = unknown>(url: string, data = {}): Promise<T> {
+    async patch<T = any>(url: string, data = {}): Promise<T> {
         const response = await this.axiosInstance.patch<T>(url, data);
         return response.data;
     }
 
-    async delete<T = unknown>(url: string, data = {}): Promise<T> {
+    async delete<T = any>(url: string, data = {}): Promise<T> {
         const response = await this.axiosInstance.delete<T>(url, { data });
         return response.data;
     }
