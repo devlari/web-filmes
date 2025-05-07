@@ -1,8 +1,10 @@
 import { LoginForm } from "@/components/forms/login/login-form";
 import { MainLayout } from "@/components/layout/main-layout";
 import { parseCookies } from "nookies";
+import jwt from "jsonwebtoken";
 
 export default function LoginPage() {
+
   return (
     <MainLayout>
       <LoginForm />
@@ -11,19 +13,20 @@ export default function LoginPage() {
 }
 
 export const getServerSideProps = async (ctx) => {
-    const cookies = parseCookies(ctx);
-    const token = cookies["@token"];
-  
-    if (token) {
-      return {
-        redirect: {
-          destination: "/filmes",
-          permanent: false,
-        },
-      };
-    }
+  const cookies = parseCookies(ctx);
+  const token = cookies["token"];
 
+  if (token) {
+    jwt.decode(token);
     return {
-      props : {},
+      redirect: {
+        destination: "/filmes",
+        permanent: false,
+      },
     };
+  }
+
+  return {
+    props: {},
+  };
 };

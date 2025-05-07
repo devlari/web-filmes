@@ -5,12 +5,39 @@ import Image from "next/image";
 import { parseCookies } from "nookies";
 import { Tag } from "primereact/tag";
 import { Button } from "primereact/button";
+import { useAuthContext } from "@/contexts/auth/auth.context";
+import Alerts from "@/services/sw-alert";
+import { useRouter } from "next/router";
+import { CadastroFilmeDialog } from "@/components/forms/filmes/cadastro-filme";
+import { useState } from "react";
 
 type DetalhesFilmeProps = {
   filme: Filme;
 };
 
 export default function DetalhesFilme({ filme }: DetalhesFilmeProps) {
+  const { tokens } = useAuthContext();
+  const apiClient = new ApiClient(tokens?.token);
+  const router = useRouter();
+  const [dialogVisible, setDialogVisible] = useState(false);
+
+  const deleteFilme = async () => {
+    try {
+      const confirmacao = await Alerts.confirm(
+        "Deseja realmente excluir o filme?"
+      );
+      if (!confirmacao) return;
+
+      await apiClient.delete(`/filme/${filme.id}`);
+      await Alerts.success("Filme excluído com sucesso");
+      router.push("/filmes");
+    } catch (error) {
+      console.error(error);
+      await Alerts.error("Ocorreu um erro ao excluir o filme", error);
+      return;
+    }
+  };
+
   return (
     <MainLayout>
       <div className="flex justify-between items-center">
@@ -21,8 +48,17 @@ export default function DetalhesFilme({ filme }: DetalhesFilmeProps) {
           </h2>
         </div>
         <div className="flex gap-2">
-          <Button label="Editar" icon="pi pi-pencil" />
-          <Button label="Excluir" icon="pi pi-trash" outlined />
+          <Button
+            label="Editar"
+            icon="pi pi-pencil"
+            onClick={() => setDialogVisible(true)}
+          />
+          <Button
+            label="Excluir"
+            onClick={deleteFilme}
+            icon="pi pi-trash"
+            outlined
+          />
         </div>
       </div>
       <div className="flex justify-between mt-4">
@@ -64,25 +100,30 @@ export default function DetalhesFilme({ filme }: DetalhesFilmeProps) {
           </Tag>
         </div>
       </div>
-        <div>
-            {filme.linkTrailer && (
-              <a
-                href={filme.linkTrailer}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 underline"
-              >
-                Ver Trailer
-              </a>
-            )}
-          </div>
+      <div>
+        {filme.linkTrailer && (
+          <a
+            href={filme.linkTrailer}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 underline"
+          >
+            Ver Trailer
+          </a>
+        )}
+      </div>
+      <CadastroFilmeDialog
+        filme={filme}
+        visible={dialogVisible}
+        onHide={() => setDialogVisible(false)}
+      />
     </MainLayout>
   );
 }
 
 export const getServerSideProps = async (ctx) => {
   const cookies = parseCookies(ctx);
-  const token = cookies["@token"];
+  const token = cookies["token"];
   const { id } = ctx.params!;
 
   if (!token) {

@@ -133,4 +133,14 @@ export default class ApiClient {
         const response = await this.axiosInstance.delete<T>(url, { data });
         return response.data;
     }
+
+    async postFormData<T = any>(url: string, formData: FormData): Promise<T> {
+        const response = await this.axiosInstance.post<T>(url, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        return response.data;
+    }
+
 }

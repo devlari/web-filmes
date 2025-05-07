@@ -12,6 +12,10 @@ export function ListFilmes({ data }: ListFilmesProps) {
 const { page, perPage, data: rows,totalPages } = data;
 const router = useRouter();
 
+const onMoreInfo = (id: number) => {
+    router.push(`/filmes/${id}`);
+};
+
 
 const onPageChange = (e) => {
     const newPage = e.page + 1;
@@ -19,7 +23,7 @@ const onPageChange = (e) => {
 };
 return (
     <>
-        <DataView value={rows} first={(page - 1) * perPage} layout='grid' itemTemplate={(item: Filme) => <CardFilme filme={item} onMoreInfo={() => console.log('Mais informações')} />} />
+        <DataView value={rows} first={(page - 1) * perPage} layout='grid' itemTemplate={(item: Filme) => <CardFilme filme={item} onMoreInfo={onMoreInfo} />} />
         <Paginator rows={perPage} first={(page - 1) * perPage} totalRecords={perPage * totalPages} onPageChange={onPageChange} />
     </>
 )

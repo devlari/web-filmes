@@ -42,9 +42,9 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     try {
       setUsuario(null);
       setTokens(null);
-      destroyCookie(null, "@token");
-      destroyCookie(null, "@refresh-token");
-      destroyCookie(null, "@usuario");
+      destroyCookie(null, "token");
+      destroyCookie(null, "refresh-token");
+      destroyCookie(null, "usuario");
     } catch (error) {
       console.log(JSON.stringify(error));
     }
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   const definirToken = useCallback((novoToken: Tokens) => {
     if (novoToken.token && novoToken.refreshToken) {
       setTokens(novoToken);
-      setCookie(null, "@token", novoToken.token, {
+      setCookie(null, "token", novoToken.token, {
         path: "/",
       });
       setCookie(null, "@refresh-token", novoToken.refreshToken, {
@@ -75,9 +75,9 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
 
   useEffect(() => {
     const cookies = parseCookies();
-    const token = cookies["@token"];
-    const refreshToken = cookies["@refresh-token"];
-    const usuarioString = cookies["@usuario"];
+    const token = cookies["token"];
+    const refreshToken = cookies["refresh-token"];
+    const usuarioString = cookies["usuario"];
 
     if (token && refreshToken) {
       setTokens({

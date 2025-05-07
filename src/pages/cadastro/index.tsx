@@ -12,7 +12,7 @@ export default function CadastroPage() {
 
 export const getServerSideProps = async (ctx) => {
     const cookies = parseCookies(ctx);
-    const token = cookies["@token"];
+    const token = cookies["token"];
   
     if (token) {
       return {
