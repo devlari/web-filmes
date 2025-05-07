@@ -134,14 +134,14 @@ export function CadastroFilmeDialog({
               </small>
             </div>
 
-            <div className="field">
+            {/* <div className="field">
               <label htmlFor="urlImagem">URL da Imagem</label>
               <ImageUploader
                 onImageUploaded={(url) => setFieldValue("urlImagem", url)}
                 onUploadCancelled={() => setFieldValue("urlImagem", "")}
                 initialImageUrl={values.urlImagem}
               />
-            </div>
+            </div> */}
 
             <div className="field">
               <label htmlFor="duracao">Duração (minutos, opcional)</label>
