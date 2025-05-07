@@ -6,8 +6,6 @@
 @import "primereact/resources/themes/md-dark-deeppurple/theme.css";
 @import "primereact/resources/primereact.min.css";
 
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
-
 @import "primeflex/primeflex.css";
 
 :root {

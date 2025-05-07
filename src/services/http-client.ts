@@ -135,11 +135,8 @@ export default class ApiClient {
     }
 
     async postFormData<T = any>(url: string, formData: FormData): Promise<T> {
-        const response = await this.axiosInstance.post<T>(url, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
+        this.axiosInstance.defaults.headers.common['Content-Type'] = 'multipart/form-data';
+        const response = await this.axiosInstance.post<T>(url, formData)
         return response.data;
     }
 

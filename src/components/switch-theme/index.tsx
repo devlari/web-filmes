@@ -9,13 +9,12 @@ export function ThemeSwitcher() {
 
   useEffect(() => {
     setMounted(true);
-    setTheme("light");
   }, [setTheme]);
 
   if (!mounted) return null;
 
   return (
-    <Button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} outlined disabled>
+    <Button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} outlined>
       <Image
         src={
           theme === "dark"

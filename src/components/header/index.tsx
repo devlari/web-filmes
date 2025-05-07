@@ -38,7 +38,7 @@ export function Header() {
   );
 
   return (
-    <header>
+    <header className='bg-black'>
       <Menubar start={start} end={end} />
     </header>
   );

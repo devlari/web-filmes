@@ -8,8 +8,9 @@ import { useEffect } from "react";
 import { Sidebar } from "primereact/sidebar";
 import { Filme } from "@/modules/filmes/types";
 import { InputTextarea } from 'primereact/inputtextarea';
+import { ImageUploader } from "@/components/image-uploader";
 
-interface CadastroFilmeDialogProps {
+type CadastroFilmeDialogProps = {
   visible: boolean;
   onHide: () => void;
   filme?: Filme;
@@ -133,14 +134,14 @@ export function CadastroFilmeDialog({
               </small>
             </div>
 
-            {/* <div className="field">
+            <div className="field">
               <label htmlFor="urlImagem">URL da Imagem</label>
               <ImageUploader
                 onImageUploaded={(url) => setFieldValue("urlImagem", url)}
                 onUploadCancelled={() => setFieldValue("urlImagem", "")}
                 initialImageUrl={values.urlImagem}
               />
-            </div> */}
+            </div>
 
             <div className="field">
               <label htmlFor="duracao">Duração (minutos, opcional)</label>
