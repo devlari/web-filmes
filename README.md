@@ -72,7 +72,7 @@ NEXT_PUBLIC_BASE_URL_API="http://localhost:3000/api"
 NEXT_PUBLIC_IMAGE_HOSTNAME="pub-ba8385b85ead456fbb39dc54e4147006.r2.dev"
 ```
 
-Certifique-se que a [API] (https://github.com/devlari/api-filmes) está rodando
+Certifique-se que a API (https://github.com/devlari/api-filmes) está rodando
 
 ### 5. Inicie o servidor de desenvolvimento
 ```
@@ -82,7 +82,7 @@ npm run dev
 O projeto estará disponível em:
 http://localhost:3001
 
-🚧 O que faltou
+### 🚧 O que faltou
 - Melhorar o layout e responsividade
 - Upload de imagens (no backend está funcionando)
 - Filtros num geral
