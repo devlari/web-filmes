@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Web Filmes 🎬
 
-## Getting Started
+Este projeto foi desenvolvido como parte de um desafio técnico para a empresa **cubos.io**.  
+A proposta era criar uma aplicação web para gerenciamento de filmes, com autenticação, cadastro e listagem.
 
-First, run the development server:
+---
+
+## ⚠️ Aviso
+
+**O frontend ficou visualmente bagunçado.**  
+Por falta de tempo, não consegui finalizar os estilos e o layout como eu gostaria.  
+Apesar disso, o essencial está funcionando: é possível **autenticar, cadastrar, visualizar, editar e excluir filmes**.
+
+---
+
+## ✨ Funcionalidades implementadas
+
+- Login com token JWT
+- Cadastro de usuários
+- Listagem de filmes
+- Criação de novos filmes
+- Edição e exclusão de filmes
+- Validações de formulário com Formik + Yup/Zod
+- Comunicação com backend via Axios
+
+---
+
+## 🧰 Tecnologias
+
+- **Next.js 15 + Turbopack**
+- **React 19**
+- **Tailwind CSS + PrimeFlex + PrimeReact**
+- **TypeScript**
+- **Formik, Yup e Zod**
+- **Axios**
+- **SweetAlert2**
+- **JWT (jsonwebtoken + nookies)**
+
+---
+
+## 📦 Instalações necessárias
+
+- [Node.js](https://nodejs.org/) (recomendada versão 18 ou superior)
+- Terminal de sua preferência (cmd, PowerShell, Terminal do VSCode, etc.)
+
+---
+
+## ▶️ Como rodar o projeto localmente
+
+Siga os passos abaixo para clonar o repositório e iniciar o projeto em ambiente de desenvolvimento:
+
+### 1. Clone o repositório
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/devlari/web-filmes.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Acesse a pasta do projeto
+```bash
+cd web-filmes
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Instale as dependências
+```bash
+npm install
+```
+### 4. Configure as variáveis de ambiente
+Crie um arquivo .env na raiz do projeto com as variáveis necessárias.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```ini
+NEXT_PUBLIC_BASE_URL_API="http://localhost:3000/api"
+NEXT_PUBLIC_IMAGE_HOSTNAME="pub-ba8385b85ead456fbb39dc54e4147006.r2.dev"
+```
 
-## Learn More
+Certifique-se que a [API] (https://github.com/devlari/api-filmes) está rodando
 
-To learn more about Next.js, take a look at the following resources:
+### 5. Inicie o servidor de desenvolvimento
+```
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+O projeto estará disponível em:
+http://localhost:3001
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🚧 O que faltou
+- Melhorar o layout e responsividade
+- Upload de imagens (no backend está funcionando)
+- Filtros num geral
+- Polimento visual com componentes customizados
+- Algumas validações extras
+- Polir o sistema de modo claro/escuro
